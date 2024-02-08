@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void chiselki(int n) {
+    vector<bool> prost(n + 1, true); // Создаем вектор для хранения информации о простых числах
+
+    for (int p = 2; p * p <= n; p++) {
+        if (prost[p]) {
+            for (int i = p * p; i <= n; i += p) {
+                prost[i] = false; // Помечаем все кратные числа как составные
+            }
+        }
+    }
+
+    for (int i = 2; i <= n; i++) {
+        if (prost[i]) {
+            cout << i << " "; // Выводим простые числа из диапазона
+        }
+    }
+    cout << endl;
+}
+
+int main() {
+    setlocale(LC_ALL, "RUS");
+    int number;
+
+    cout << "Введите натуральное число: ";
+    cin >> number;
+
+    if (number < 2) {
+        cout << "Число должно быть больше или равно 2." << endl;
+        return 1;
+    }
+
+    cout << "Простые числа от 2 до " << number << ":\n";
+    chiselki(number);
+
+    return 0;
+}
